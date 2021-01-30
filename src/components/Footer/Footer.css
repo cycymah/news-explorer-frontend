@@ -1,0 +1,70 @@
+.footer {
+    width: 100%;
+    min-height: 80px;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+
+.footer__container {
+    max-width: 1212px;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.footer__copyright {
+    font-size: 16px;
+    line-height: 22px;
+    color: #B6BCBF;
+}
+
+.footer__nav-container {
+    display: flex;
+}
+
+.footer__links-list {
+    display: flex;
+    padding: 0;
+    margin: 0 42px 0 0;
+    list-style: none;
+}
+
+.footer__img-link {
+    width: 20px;
+    height: 20px;
+    margin-right: 28px;
+    transition: opacity .4s ease-in-out;
+}
+
+.footer__img-link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
+
+.footer__text-link {
+    margin-left: 40px;
+    font-size: 18px;
+    line-height: 24px;
+    text-decoration: none;
+    color: #1A1B22;
+    transition: opacity .4s ease-in-out;
+}
+
+.footer__img-link_git {
+    /*background: url('../../images/git.svg') no-repeat;*/
+    /*background-size: cover;*/
+}
+
+.footer__img-link_face {
+    /*background: url('../../images/face.svg') no-repeat;*/
+    /*background-size: cover;*/
+}
+
+.footer__text-link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
