@@ -18,20 +18,29 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#" className="footer__text-link">
+              <a
+                href="https://praktikum.yandex.ru/"
+                className="footer__text-link"
+              >
                 Яндекс Практикум
               </a>
             </li>
           </ul>
           <ul className="footer__links-list">
             <li>
-              <a href="#" className="footer__img-link footer__img-link_git">
-                <img src={imgGit} />
+              <a
+                href="https://github.com/cycymah/"
+                className="footer__img-link"
+              >
+                <img src={imgGit} alt="Иконка гитхаба" />
               </a>
             </li>
             <li>
-              <a href="#" className="footer__img-link footer__img-link_face">
-                <img src={imgFace} />
+              <a
+                href="https://www.facebook.com/ivan.solnysh"
+                className="footer__img-link"
+              >
+                <img src={imgFace} alt="Иконка фейсбука" />
               </a>
             </li>
           </ul>

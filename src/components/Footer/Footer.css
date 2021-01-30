@@ -54,15 +54,6 @@
     transition: opacity .4s ease-in-out;
 }
 
-.footer__img-link_git {
-    /*background: url('../../images/git.svg') no-repeat;*/
-    /*background-size: cover;*/
-}
-
-.footer__img-link_face {
-    /*background: url('../../images/face.svg') no-repeat;*/
-    /*background-size: cover;*/
-}
 
 .footer__text-link:hover {
     transition: opacity .4s ease-in-out;

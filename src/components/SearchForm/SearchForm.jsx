@@ -2,8 +2,11 @@ import './SearchForm.css';
 import { useForm } from 'react-hook-form';
 
 function SearchForm() {
-  const { register, handleSubmit, errors } = useForm({ mode: 'onChange' });
+  const { register, errors } = useForm({ mode: 'onChange' });
 
+  const handleSubmit = evt => {
+    evt.preventDefault();
+  };
   return (
     <section className="search">
       <h1 className="search__title">Что творится в мире?</h1>
@@ -27,6 +30,7 @@ function SearchForm() {
           type="submit"
           className="search__btn"
           disabled={errors.search && true}
+          onSubmit={handleSubmit}
         >
           Искать
           {/*{formSubmitState ? 'Загрузка...' : 'Искать'}*/}
