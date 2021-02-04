@@ -1,27 +1,34 @@
 import './Header.css';
 import imageBtn from '../../images/Union.png';
+import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({ handlePopupOpen }) {
   const isAutoriz = false;
-  const buttonText = 'Авторизация' || 'Грета';
+  const buttonText = isAutoriz ? 'Грета' : 'Авторизация';
+
   return (
     <header className="header">
       <div className="header_container">
-        <h2 className="header__title">NewsExplorer</h2>
+        <Link to="/" className="header__title-link">
+          <h2 className="header__title">NewsExplorer</h2>
+        </Link>
         <div className="header__functional-box">
-          <a href="#" className="header__link">
+          <Link to="/" className="header__link">
             Главная
-          </a>
+          </Link>
           {isAutoriz ? (
-            <a href="#" className="header__link">
+            <Link to="/saved-news" className="header__link">
               Сохраненные статьи
-            </a>
+            </Link>
           ) : (
             ''
           )}
-          <button className="header__authorization-btn">
+          <button
+            className="header__authorization-btn"
+            onClick={handlePopupOpen}
+          >
             {buttonText}
-            {/*<img src={imageBtn} className="header__img-btn" />*/}
+            <img src={imageBtn} className="header__img-btn" />
           </button>
         </div>
       </div>

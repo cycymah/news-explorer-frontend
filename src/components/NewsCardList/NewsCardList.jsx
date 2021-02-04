@@ -1,12 +1,21 @@
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
 import { news } from '../../constants/news';
+import classNames from 'classnames';
 
-const NewsCardList = () => {
+const NewsCardList = ({ auth }) => {
+  const hideTitle = classNames('news__title', {
+    'news_show-saved-news': auth,
+  });
+
+  const hideMoreBtn = classNames('news__more-news-btn', {
+    'news_show-saved-news': auth,
+  });
+
   return (
     <section className="news">
       <div className="news__container">
-        <h2 className="news__title">Результаты поиска</h2>
+        <h2 className={hideTitle}>Результаты поиска</h2>
         <ul className="news__list">
           {news.map((oneNews, i) => (
             <NewsCard
@@ -20,7 +29,7 @@ const NewsCardList = () => {
             />
           ))}
         </ul>
-        <button className="news__more-news-btn" type="button">
+        <button className={hideMoreBtn} type="button">
           Показать еще
         </button>
       </div>

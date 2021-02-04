@@ -16,7 +16,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 576px;
+  box-sizing: border-box;
+  padding-bottom: 48px;
+  /*min-height: 576px;*/
   background: url('../../images/unsplash.png') no-repeat;
   background-size: cover;
 }

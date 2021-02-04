@@ -27,7 +27,7 @@ const Footer = () => {
             </li>
           </ul>
           <ul className="footer__links-list">
-            <li>
+            <li className="footer__links-item">
               <a
                 href="https://github.com/cycymah/"
                 className="footer__img-link"
@@ -35,7 +35,7 @@ const Footer = () => {
                 <img src={imgGit} alt="Иконка гитхаба" />
               </a>
             </li>
-            <li>
+            <li className="footer__links-item">
               <a
                 href="https://www.facebook.com/ivan.solnysh"
                 className="footer__img-link"

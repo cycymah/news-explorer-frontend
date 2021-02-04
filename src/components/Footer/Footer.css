@@ -33,10 +33,21 @@
     list-style: none;
 }
 
+.footer__links-list:last-of-type {
+    margin-right: 0;
+}
+
+.footer__links-item {
+    margin-right: 28px;
+}
+
+.footer__links-item:last-of-type {
+    margin-right: 0;
+}
+
 .footer__img-link {
     width: 20px;
     height: 20px;
-    margin-right: 28px;
     transition: opacity .4s ease-in-out;
 }
 

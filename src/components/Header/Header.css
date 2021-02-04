@@ -17,6 +17,17 @@
     width: 100%;
     margin: 0 auto;
 }
+.header__title-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: opacity .4s ease-in-out;
+}
+
+.header__title-link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
 
 .header__title {
     font-family: Roboto Slab, sans-serif;
