@@ -19,10 +19,11 @@ const NewsCardList = ({ auth }) => {
         <ul className="news__list">
           {news.map((oneNews, i) => (
             <NewsCard
+              saved={false}
               key={i}
               title={oneNews.title}
               image={oneNews.image}
-              data={oneNews.date}
+              date={oneNews.date}
               source={oneNews.source}
               description={oneNews.text}
               link={oneNews.link}

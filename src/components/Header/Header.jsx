@@ -1,34 +1,52 @@
 import './Header.css';
 import imageBtn from '../../images/Union.png';
-import { Link } from 'react-router-dom';
+import imageBtnLight from '../../images/logout.png';
 
-function Header({ handlePopupOpen }) {
-  const isAutoriz = false;
+import { Link } from 'react-router-dom';
+import classNames from 'classnames';
+
+function Header({ handlePopupOpen, isAutoriz, currentRoute }) {
   const buttonText = isAutoriz ? 'Грета' : 'Авторизация';
 
+  const imageBtnSwitch =
+    currentRoute === '/saved-news' ? imageBtn : imageBtnLight;
+  const activeRootRoute = classNames('header__link', {
+    header__link_active: currentRoute === '/',
+  });
+
+  const activeSavedNewsRoute = classNames('header__link', {
+    'header__link_active-dark': currentRoute === '/saved-news',
+  });
+
+  const btnClasses = classNames('header__authorization-btn', {
+    'header__authorization-btn_dark': currentRoute === '/saved-news',
+  });
+
+  const headerText = classNames('header', {
+    header_dark: currentRoute === '/saved-news',
+  });
+
   return (
-    <header className="header">
-      <div className="header_container">
+    <header className={headerText}>
+      <div className="header__container">
         <Link to="/" className="header__title-link">
           <h2 className="header__title">NewsExplorer</h2>
         </Link>
         <div className="header__functional-box">
-          <Link to="/" className="header__link">
+          <Link to="/" className={activeRootRoute}>
             Главная
           </Link>
-          {isAutoriz ? (
-            <Link to="/saved-news" className="header__link">
+          {!isAutoriz || (
+            <Link to="/saved-news" className={activeSavedNewsRoute}>
               Сохраненные статьи
             </Link>
-          ) : (
-            ''
           )}
-          <button
-            className="header__authorization-btn"
-            onClick={handlePopupOpen}
-          >
+          <button className={btnClasses} onClick={handlePopupOpen}>
             {buttonText}
-            <img src={imageBtn} className="header__img-btn" />
+
+            {!isAutoriz || (
+              <img src={imageBtnSwitch} className="header__img-btn" />
+            )}
           </button>
         </div>
       </div>

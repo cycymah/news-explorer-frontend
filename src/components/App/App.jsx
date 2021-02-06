@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Route, Switch, useHistory, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 
 import './App.css';
 import Main from '../Main/Main';
@@ -15,28 +16,37 @@ function App() {
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const [isRegModalOpen, setRegModalOpen] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  // const auth = true;
+  const currentRoute = useLocation().pathname;
+  const isSavedNewsPath = currentRoute === '/saved-news';
+
+  const fonClasses = classNames('fon', {
+    fon_hide: isSavedNewsPath,
+  });
+
+  // Переменные состояния интерфейса
+  const isAutoriz = false;
+  const isNotFoundPage = false;
+  const isLoading = false;
 
   const addModalEscEvent = () => {
     document.addEventListener('keyup', handleEscModal);
   };
 
-  const switchModal = () => {
-    handleClosePopups();
-  };
-
+  // Открыть модалку аутентификации
   const handleOpenAuthModal = () => {
-    console.log('click');
-    // switchModal();
+    handleClosePopups();
     setAuthModalOpen(true);
     addModalEscEvent();
   };
 
+  // Открыть модалку регистрации
   const handleOpenRegModal = () => {
-    switchModal();
+    handleClosePopups();
     setRegModalOpen(true);
+    addModalEscEvent();
   };
 
+  // Закрыть все модалки
   const handleClosePopups = () => {
     setAuthModalOpen(false);
     setRegModalOpen(false);
@@ -52,14 +62,18 @@ function App() {
 
   return (
     <div className="page">
-      <div className="fon">
-        <Header handlePopupOpen={handleOpenAuthModal} />
-        <SearchForm />
+      <div className={fonClasses}>
+        <Header
+          handlePopupOpen={handleOpenAuthModal}
+          isAutoriz={isAutoriz}
+          currentRoute={currentRoute}
+        />
+        {isSavedNewsPath || <SearchForm />}
       </div>
-      <Main>
+      <Main isNotFoundPage={isNotFoundPage} isLoading={isLoading}>
         <Switch>
           <Route exact path="/">
-            <NewsCardList />
+            {isLoading || isNotFoundPage ? '' : <NewsCardList />}
             <About />
           </Route>
           <Route path="/saved-news">
@@ -69,22 +83,25 @@ function App() {
       </Main>
 
       <PopupModal
-        // isOpen={isRegModalOpen}
+        isOpenAuth={isRegModalOpen}
         handleClosePopup={handleClosePopups}
-        LinkName="Авторизоваться"
+        handleOpenAuth={handleOpenAuthModal}
+        linkName="Авторизоваться"
         title="Регистрация"
         textButton="Зарегистрироваться"
         name="registration"
       />
 
       <PopupModal
-        isOpen={isAuthModalOpen}
+        isOpenReg={isAuthModalOpen}
+        handleOpenRegModal={handleOpenRegModal}
         handleClosePopup={handleClosePopups}
         linkName="Зарегистрироваться"
         title="Вход"
         textButton="Войти"
         name="auth"
       />
+
       <Footer />
     </div>
   );

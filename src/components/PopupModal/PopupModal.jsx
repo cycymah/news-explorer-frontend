@@ -1,19 +1,37 @@
 import './PopupModal.css';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import FormInput from '../FormInput/FormInput';
+import React, { useState } from 'react';
+import {
+  emailValidationConfig,
+  passwordValidationConfig,
+  nameValidationConfig,
+} from '../../constants/form';
 
 const PopupModal = ({
   name,
   onSubmit,
   handleClosePopup,
-  isOpen,
+  isOpenAuth,
+  isOpenReg,
   linkName,
   title,
+  handleOpenAuth,
   textButton,
-  linkTo,
+  handleOpenRegModal,
 }) => {
-  const popupToggle = classNames('modal', { modal_active: isOpen });
-  console.log(isOpen, 'inAuth');
+  const [isValidName, checkValidityName] = useState(false);
+  const [isValidPassword, checkValidityPassword] = useState(false);
+  const [isValidEmail, checkValidityEmail] = useState(false);
+
+  const popupToggle = classNames('modal', {
+    modal_active: isOpenAuth || isOpenReg,
+  });
+
+  const buttonValidityClass = classNames('form__submit-btn', {
+    'form__submit-btn_inactive': isValidPassword || isValidEmail,
+  });
+
   return (
     <div className={popupToggle}>
       <div onClick={handleClosePopup} className="modal__overlay" />
@@ -31,54 +49,43 @@ const PopupModal = ({
           onSubmit={onSubmit}
           noValidate
         >
-          <label className="form__label">
-            Email
-            <input
-              type="text"
-              className="form__input"
-              id="email"
-              placeholder="Введите почту"
-              name="email"
-              minLength="2"
-              required
-              // value={''}
-              // onChange={}
-            />
-          </label>
-          <label className="form__label">
-            Пароль
-            <input
-              className="form__input"
-              id="password-input"
-              placeholder="Введите пароль"
-              name="password"
-              minLength="4"
-              type="text"
-              required
-              // value={}
-              // onChange={}
-            />
-          </label>
-          <label className="form__label">
-            Имя
-            <input
-              className="form__input"
-              id="name-input"
-              placeholder="Введите имя"
+          <FormInput
+            getFormValid={checkValidityEmail}
+            label="Email"
+            validationConfig={emailValidationConfig}
+            name="email"
+            placeholder="Введите почту"
+          />
+          <FormInput
+            getFormValid={checkValidityPassword}
+            label="Пароль"
+            validationConfig={passwordValidationConfig}
+            name="password"
+            placeholder="Введите пароль"
+          />
+          {isOpenReg || (
+            <FormInput
+              getFormValid={checkValidityName}
+              label="Имя"
+              validationConfig={nameValidationConfig}
               name="name"
-              minLength="4"
-              type="text"
-              required
-              // value={}
-              // onChange={}
+              placeholder="Введите имя"
             />
-          </label>
-          <button className="form__submit-btn" type="submit" disabled>
+          )}
+          <button
+            className={buttonValidityClass}
+            type="submit"
+            disabled={isValidPassword || isValidEmail}
+          >
             {textButton}
           </button>
           <p className="form__auth-text">
             или&nbsp;
-            <a href="#" className="form__auth-link">
+            <a
+              href="#"
+              className="form__auth-link"
+              onClick={isOpenReg ? handleOpenRegModal : handleOpenAuth}
+            >
               {linkName}
             </a>
           </p>
