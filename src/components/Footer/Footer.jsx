@@ -7,9 +7,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
-        <span className="footer__copyright">
-          &copy; 2020 Solnyshkin Ivan, Powered by News API
-        </span>
+        <span className="footer__copyright">&copy; 2020 Solnyshkin Ivan</span>
         <nav className="footer__nav-container">
           <ul className="footer__links-list">
             <li>

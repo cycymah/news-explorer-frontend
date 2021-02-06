@@ -1,0 +1,136 @@
+.navigation {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.navigation__links {
+    display: flex;
+    font-size: 18px;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.navigation__link-item {
+    margin-right: 34px;
+}
+
+.navigation__link {
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    line-height: 4.5;
+    transition: opacity .4s ease-in-out;
+}
+
+.navigation__link-item_active {
+    border-bottom: 3px solid #FFF;
+}
+
+.navigation__link-item_active-dark {
+    border-bottom: 3px solid #1A1B22;
+}
+
+.navigation__link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
+
+.navigation__authorization-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 176px;
+    height: 48px;
+    background-color: transparent;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 100px;
+    color: inherit;
+    outline: none;
+    transition: opacity .4s ease-in-out;
+    cursor: pointer;
+}
+
+.navigation__authorization-btn_dark {
+    border: 1px solid #1A1B22
+}
+
+.navigation__authorization-btn:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
+
+.navigation__img-btn {
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 1000px ){
+    .navigation__link {
+        font-size: 16px;
+        line-height: 4;
+    }
+
+    .navigation__link-item {
+        margin-right: 16px;
+    }
+
+    .navigation__authorization-btn {
+        width: 152px;
+        height: 40px;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .navigation {
+        position: absolute;
+        visibility: hidden;
+        opacity: 0;
+        flex-direction: column;
+        height: 230px;
+        background-color: #1A1B22;
+        width: 100%;
+        top: 57px;
+        left: 0;
+        padding: 16px 0 24px;
+        border-radius: 0 0 16px 16px;
+        justify-content: space-between;
+        box-sizing: border-box;
+        transition: all .4s ease-in-out;
+    }
+
+    .navigation_active {
+        display: flex;
+        visibility: visible;
+        opacity: 1;
+        transition: all .4s ease-in-out;
+    }
+    .navigation__links {
+        width: 100%;
+    }
+
+    .navigation__link {
+        margin-left: 16px;
+        margin-right: 0;
+        width: calc(100% - 16px);
+        height: auto;
+        line-height: 56px;
+    }
+
+    .navigation__link-item_active {
+        border: none;
+    }
+
+    .navigation__authorization-btn {
+        margin: 0 16px;
+        width: calc(100% - 32px);
+        height: 56px;
+    }
+
+    .navigation__links {
+        flex-direction: column;
+    }
+}

@@ -17,14 +17,14 @@ function App() {
   const [isRegModalOpen, setRegModalOpen] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const currentRoute = useLocation().pathname;
-  const isSavedNewsPath = currentRoute === '/saved-news';
+  const isRootPath = currentRoute === '/';
 
   const fonClasses = classNames('fon', {
-    fon_hide: isSavedNewsPath,
+    fon_hide: !isRootPath,
   });
 
   // Переменные состояния интерфейса
-  const isAutoriz = false;
+  const isAutoriz = true;
   const isNotFoundPage = false;
   const isLoading = false;
 
@@ -66,9 +66,9 @@ function App() {
         <Header
           handlePopupOpen={handleOpenAuthModal}
           isAutoriz={isAutoriz}
-          currentRoute={currentRoute}
+          isRootPath={isRootPath}
         />
-        {isSavedNewsPath || <SearchForm />}
+        {!isRootPath || <SearchForm />}
       </div>
       <Main isNotFoundPage={isNotFoundPage} isLoading={isLoading}>
         <Switch>

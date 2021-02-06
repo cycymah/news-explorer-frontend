@@ -14,6 +14,22 @@
     box-shadow: inset 0 -1px 0 #D1D2D6;
 }
 
+.header__burger {
+    display: none;
+    border: none;
+    height: 24px;
+    width: 24px;
+    outline: none;
+    background: url("../../images/menu.png") no-repeat center;
+    cursor: pointer;
+    transition: opacity .4s ease-in-out;
+}
+
+.header__burger:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
+
 .header__container {
     display: flex;
     height: 100%;
@@ -42,67 +58,7 @@
     cursor: pointer;
 }
 
-.header__functional-box {
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-.header__link {
-    font-family: Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-    height: 100%;
-    color: inherit;
-    text-decoration: none;
-    line-height: 4.5;
-    margin-right: 34px;
-    transition: opacity .4s ease-in-out;
-}
-
-.header__link_active {
-    border-bottom: 3px solid #FFF;
-}
-
-.header__link_active-dark {
-    border-bottom: 3px solid #1A1B22;
-}
-
-.header__link:hover {
-    transition: opacity .4s ease-in-out;
-    opacity: .8;
-}
-
-.header__authorization-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 176px;
-    height: 48px;
-    background-color: transparent;
-    border: 1px solid #FFFFFF;
-    box-sizing: border-box;
-    border-radius: 100px;
-    color: inherit;
-    outline: none;
-    transition: opacity .4s ease-in-out;
-    cursor: pointer;
-}
-
-.header__authorization-btn_dark{
-    border: 1px solid #1A1B22
-}
-
-.header__authorization-btn:hover {
-    transition: opacity .4s ease-in-out;
-    opacity: .8;
-}
-
-.header__img-btn {
-    margin-left: 5px;
-}
-
-@media screen and (max-width: 768px ){
+@media screen and (max-width: 1000px ){
     .header {
         height: 66px;
     }
@@ -114,15 +70,33 @@
     .header__title-link {
         font-size: 20px;
     }
+}
 
-    .header__link {
-        font-size: 16px;
-        line-height: 4;
-        margin-right: 16px;
+@media screen and (max-width: 630px) {
+    .header {
+        height: 56px;
+        justify-content: space-between;
+        transition: background-color .4s ease-in-out;
     }
 
-    .header__authorization-btn {
-        width: 152px;
-        height: 40px;
+    .header__background_black {
+        background-color: #1A1B22;
+        transition: background-color .4s ease-in-out;
+    }
+
+    .header__container {
+        margin: 0 16px;
+    }
+
+    .header__burger {
+        display: block;
+    }
+
+    .header__burger_dark {
+        background-image: url('../../images/menu-dark.png');
+    }
+
+    .header__burger_background_close {
+        background-image: url('../../images/close-menu.png');
     }
 }

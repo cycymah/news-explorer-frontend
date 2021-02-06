@@ -28,8 +28,11 @@
   padding-bottom: 0;
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 1000px){
   .fon {
     min-height: 400px;
+  }
+  .fon_hide {
+    min-height: 0;
   }
 }

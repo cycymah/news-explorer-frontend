@@ -70,3 +70,31 @@
     transition: opacity .4s ease-in-out;
     opacity: .8;
 }
+
+@media screen and (max-width: 1000px) {
+    .footer {
+        min-height: 64px;
+    }
+
+    .footer__container {
+        margin: 0 40px;
+    }
+
+    .footer__links-list {
+        margin-right: 25px;
+    }
+
+    .footer__links-item {
+        margin-right: 25px;
+    }
+
+    .footer__text-link {
+        margin-left: 28px;
+    }
+}
+
+@media screen and (max-width: 630px){
+    .footer {
+        flex-direction: column;
+    }
+}

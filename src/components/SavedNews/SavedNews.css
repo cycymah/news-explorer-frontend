@@ -23,3 +23,12 @@
     grid-template-rows: repeat(auto-fill, 576px);
     gap: 16px;
 }
+
+@media screen and (max-width: 1000px) {
+    .saved-news__list {
+        grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
+        grid-template-rows: repeat(auto-fill, 420px);
+        gap: 8px;
+        margin: 0 40px;
+    }
+}
