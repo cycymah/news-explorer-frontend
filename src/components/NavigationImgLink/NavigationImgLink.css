@@ -1,0 +1,14 @@
+.footer__links-item {
+    margin-right: 28px;
+}
+
+.footer__img-link {
+    width: 20px;
+    height: 20px;
+    transition: opacity .4s ease-in-out;
+}
+
+.footer__img-link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}

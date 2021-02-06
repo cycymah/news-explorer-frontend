@@ -30,7 +30,7 @@ const NavigationMenu = ({
   });
 
   return (
-    <div className={navigationClasses}>
+    <nav className={navigationClasses}>
       <ul className="navigation__links">
         <li className={activeRootRoute} onClick={closeMenu}>
           <Link to="/" className="navigation__link">
@@ -55,7 +55,7 @@ const NavigationMenu = ({
           />
         )}
       </button>
-    </div>
+    </nav>
   );
 };
 

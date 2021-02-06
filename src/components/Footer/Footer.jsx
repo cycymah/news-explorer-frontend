@@ -1,7 +1,9 @@
 import './Footer.css';
 import React from 'react';
-import imgGit from '../../images/git.svg';
-import imgFace from '../../images/face.svg';
+import NavigationList from '../NavigationLinks/NavigationList';
+import NavigationLinksGroup from '../NavigationLinksGroup/NavigationLinksGroup';
+import { linkOptions } from '../../constants/links-options';
+import NavigationImgLink from '../NavigationImgLink/NavigationImgLink';
 
 const Footer = () => {
   return (
@@ -9,39 +11,20 @@ const Footer = () => {
       <div className="footer__container">
         <span className="footer__copyright">&copy; 2020 Solnyshkin Ivan</span>
         <nav className="footer__nav-container">
-          <ul className="footer__links-list">
-            <li>
-              <a href="#" className="footer__text-link">
-                Главная
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://praktikum.yandex.ru/"
-                className="footer__text-link"
-              >
-                Яндекс Практикум
-              </a>
-            </li>
+          <ul className="footer__text-links">
+            <NavigationLinksGroup />
           </ul>
-          <ul className="footer__links-list">
-            <li className="footer__links-item">
-              <a
-                href="https://github.com/cycymah/"
-                className="footer__img-link"
-              >
-                <img src={imgGit} alt="Иконка гитхаба" />
-              </a>
-            </li>
-            <li className="footer__links-item">
-              <a
-                href="https://www.facebook.com/ivan.solnysh"
-                className="footer__img-link"
-              >
-                <img src={imgFace} alt="Иконка фейсбука" />
-              </a>
-            </li>
-          </ul>
+          <NavigationList>
+            {linkOptions.map(({ imgAlt, imgSrc, linkSrc }, i) => (
+              <NavigationImgLink
+                imgAlt={imgAlt}
+                imgSrc={imgSrc}
+                linkSrc={linkSrc}
+                key={i}
+              />
+            ))}
+            <NavigationList />
+          </NavigationList>
         </nav>
       </div>
     </footer>

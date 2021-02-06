@@ -79,6 +79,22 @@
 
 @media screen and (max-width: 630px){
     .news__container {
+        margin: 16px 16px 32px;
+        box-sizing: border-box;
+    }
+
+    .news__title {
+        margin-top: 0;
+    }
+
+    .news__list {
+        gap: 10px;
+        padding: 24px 0 12px;
+    }
+
+
+    .news__more-news-btn {
+        width: 100%;
         margin: 0;
     }
 }

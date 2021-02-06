@@ -68,5 +68,19 @@
 @media screen and (max-width: 630px){
     .about {
         flex-direction: column;
+        margin: 23px 24px;
+        box-sizing: border-box;
+    }
+
+    .about__avatar {
+        margin-top: 0;
+        width: 272px;
+        height: 272px;
+        align-items: center;
+    }
+
+    .about__content-box {
+        margin: 24px 0 80px;
+        box-sizing: border-box;
     }
 }
