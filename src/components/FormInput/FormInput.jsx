@@ -20,7 +20,6 @@ const FormInput = ({
       <input
         type="text"
         className="form__input"
-        id={name}
         placeholder={placeholder}
         name={name}
         ref={validation}

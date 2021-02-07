@@ -24,7 +24,6 @@ const Footer = () => {
                 key={i}
               />
             ))}
-            <NavigationList />
           </NavigationList>
         </nav>
       </div>
