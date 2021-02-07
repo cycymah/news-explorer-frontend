@@ -17,12 +17,17 @@ function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
     header__burger_background_close: isMenuOpen,
   });
 
+  const overlayClasses = classNames('header__overlay', {
+    header__overlay_active: isMenuOpen,
+  });
+
   const handleMenuOpen = () => {
     setMenuOpen(!isMenuOpen);
   };
 
   return (
     <header className={headerClasses}>
+      <div className={overlayClasses} />
       <div className="header__container">
         <Link to="/" className="header__title-link">
           <h2 className="header__title">NewsExplorer</h2>
@@ -32,6 +37,7 @@ function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
           isRootPath={isRootPath}
           handlePopupOpen={handlePopupOpen}
           isMenuOpen={isMenuOpen}
+          handleMenuOpen={setMenuOpen}
           closeMenu={handleMenuOpen}
         />
         <button

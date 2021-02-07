@@ -4,14 +4,13 @@
     font-style: normal;
     font-weight: normal;
     color: #1A1B22;
+    justify-content: center;
 }
 
 .news__container {
     display: flex;
     flex-direction: column;
-    max-width: 1232px;
-    width: 100%;
-    margin: 0 auto;
+    margin: 0 104px;
 }
 
 .news_show-saved-news {
@@ -89,9 +88,9 @@
 
     .news__list {
         gap: 10px;
+        grid-template-rows: repeat(auto-fill, 440px);
         padding: 24px 0 12px;
     }
-
 
     .news__more-news-btn {
         width: 100%;

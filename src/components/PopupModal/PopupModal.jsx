@@ -20,9 +20,9 @@ const PopupModal = ({
   textButton,
   handleOpenRegModal,
 }) => {
-  const [isValidName, checkValidityName] = useState(false);
-  const [isValidPassword, checkValidityPassword] = useState(false);
-  const [isValidEmail, checkValidityEmail] = useState(false);
+  const [isValidName, checkValidityName] = useState(true);
+  const [isValidPassword, checkValidityPassword] = useState(true);
+  const [isValidEmail, checkValidityEmail] = useState(true);
 
   const popupToggle = classNames('modal', {
     modal_active: isOpenAuth || isOpenReg,

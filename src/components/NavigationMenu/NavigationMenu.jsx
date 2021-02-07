@@ -10,6 +10,7 @@ const NavigationMenu = ({
   handlePopupOpen,
   isMenuOpen,
   closeMenu,
+  handleMenuOpen,
 }) => {
   const buttonText = isAutoriz ? 'Грета' : 'Авторизация';
   const imageBtnSwitch = !isRootPath && !isMenuOpen ? imageBtn : imageBtnLight;
@@ -29,6 +30,11 @@ const NavigationMenu = ({
     navigation_active: isMenuOpen,
   });
 
+  const handleOpenAuthPopup = () => {
+    handleMenuOpen(false);
+    handlePopupOpen();
+  };
+
   return (
     <nav className={navigationClasses}>
       <ul className="navigation__links">
@@ -45,7 +51,7 @@ const NavigationMenu = ({
           </li>
         )}
       </ul>
-      <button className={btnClasses} onClick={handlePopupOpen}>
+      <button className={btnClasses} onClick={handleOpenAuthPopup}>
         {buttonText}
         {!isAutoriz || (
           <img

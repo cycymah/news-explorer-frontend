@@ -205,3 +205,21 @@
         overflow: hidden;
     }
 }
+
+@media screen and (max-width: 630px){
+    .card__text-box {
+        padding-top: 10px;
+    }
+
+    .card__content-box {
+        padding: 16px;
+        height: auto;
+    }
+    .card__description {
+        margin-bottom: 10px;
+        -webkit-line-clamp: 4;
+    }
+    .card__image {
+        height: 196px;
+    }
+}
