@@ -60,7 +60,8 @@
 }
 
 .header__overlay {
-    width: 100vw;
+    max-width: 100vw;
+    width: 100%;
     background-color: #000;
     visibility: hidden;
     opacity: 0;
@@ -90,7 +91,7 @@
     }
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 640px) {
     .header {
         height: 56px;
         justify-content: space-between;

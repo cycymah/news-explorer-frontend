@@ -40,7 +40,7 @@
     }
 }
 
-@media screen and (max-width: 630px){
+@media screen and (max-width: 640px){
     .saved-news__header {
         margin: 8px 16px 32px;
     }

@@ -15,7 +15,7 @@
     }
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 640px) {
     .footer__links-list {
         margin-right: 18px;
     }

@@ -125,7 +125,7 @@
     text-decoration: none;
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 640px) {
     .form {
         position: fixed;
         min-height: 300px;
