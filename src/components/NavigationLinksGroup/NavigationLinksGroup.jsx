@@ -1,7 +1,8 @@
-import './NavigationLinksGroup.css';
 import { Link } from 'react-router-dom';
 
-const NavigationLinksGroup = ({ name }) => {
+import './NavigationLinksGroup.css';
+
+const NavigationLinksGroup = () => {
   return (
     <>
       <li>

@@ -1,0 +1,56 @@
+.confirm {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+    max-width: 430px;
+    min-height: 182px;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    background-color: white;
+    z-index: 100;
+    box-sizing: border-box;
+    padding: 34px 36px 28px;
+    margin: 0 45px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    color: #000;
+}
+
+.confirm__title {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 28px;
+    color: #1A1B22;
+    text-align: left;
+}
+
+
+.confirm__close-btn {
+    background: url('../../images/close-btn.png') no-repeat center;
+    width: 41px;
+    height: 41px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    transition: 0.5s ease-in-out;
+    outline: none;
+}
+
+.confirm__close-btn:hover {
+    transition: 0.5s ease-in-out;
+    opacity: 0.6;
+}
+
+.confirm__auth-link {
+    margin: 14px 0 0 0;
+    cursor: pointer;
+    color: #2F71E5;
+}

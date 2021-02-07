@@ -35,8 +35,13 @@ const nameValidationConfig = {
   },
 };
 
+const searchValidationConfig = {
+  required: { value: true, message: 'Поле обязательно для заполнения' },
+};
+
 export {
   emailValidationConfig,
   nameValidationConfig,
   passwordValidationConfig,
+  searchValidationConfig,
 };

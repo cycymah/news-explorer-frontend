@@ -1,8 +1,9 @@
-import './NavigationMenu.css';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+
+import './NavigationMenu.css';
 import imageBtn from '../../images/Union.png';
 import imageBtnLight from '../../images/logout.png';
-import { Link } from 'react-router-dom';
 
 const NavigationMenu = ({
   isAutoriz,

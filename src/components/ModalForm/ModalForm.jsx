@@ -1,16 +1,16 @@
-import './PopupModal.css';
 import classNames from 'classnames';
-import FormInput from '../FormInput/FormInput';
 import React, { useState } from 'react';
+
+import './ModalForm.css';
+import FormInput from '../FormInput/FormInput';
 import {
   emailValidationConfig,
   passwordValidationConfig,
   nameValidationConfig,
 } from '../../constants/form';
 
-const PopupModal = ({
+const ModalForm = ({
   name,
-  onSubmit,
   handleClosePopup,
   isOpenAuth,
   isOpenReg,
@@ -19,8 +19,9 @@ const PopupModal = ({
   handleOpenAuth,
   textButton,
   handleOpenRegModal,
+  handleOpenConfirmModal,
 }) => {
-  const [isValidName, checkValidityName] = useState(true);
+  const [isValidName, checkValidityName] = useState(false);
   const [isValidPassword, checkValidityPassword] = useState(true);
   const [isValidEmail, checkValidityEmail] = useState(true);
 
@@ -29,8 +30,16 @@ const PopupModal = ({
   });
 
   const buttonValidityClass = classNames('form__submit-btn', {
-    'form__submit-btn_inactive': isValidPassword || isValidEmail,
+    'form__submit-btn_inactive': isValidPassword || isValidEmail || isValidName,
   });
+
+  // Субмит для регистрации открывает откывает модалку с успешной регистрацией
+  const onSubmitForm = evt => {
+    evt.preventDefault();
+    if (!isOpenReg) {
+      handleOpenConfirmModal();
+    }
+  };
 
   return (
     <div className={popupToggle}>
@@ -46,7 +55,7 @@ const PopupModal = ({
           action="#"
           className="form__section"
           name={name}
-          onSubmit={onSubmit}
+          onSubmit={onSubmitForm}
           noValidate
         >
           <FormInput
@@ -75,7 +84,7 @@ const PopupModal = ({
           <button
             className={buttonValidityClass}
             type="submit"
-            disabled={isValidPassword || isValidEmail}
+            disabled={isValidPassword || isValidEmail || isValidName}
           >
             {textButton}
           </button>
@@ -95,4 +104,4 @@ const PopupModal = ({
   );
 };
 
-export default PopupModal;
+export default ModalForm;

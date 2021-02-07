@@ -1,16 +1,17 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import classNames from 'classnames';
 
 import './App.css';
 import Main from '../Main/Main';
+import About from '../About/About';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import ModalForm from '../ModalForm/ModalForm';
 import SavedNews from '../SavedNews/SavedNews';
 import SearchForm from '../SearchForm/SearchForm';
-import PopupModal from '../PopupModal/PopupModal';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import About from '../About/About';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 function App() {
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
@@ -24,10 +25,18 @@ function App() {
   });
 
   // Переменные состояния интерфейса
-  const isAutoriz = true;
-  const isNotFoundPage = false;
-  const isLoading = false;
+  const isAutoriz = true; // Авторизованный и нет пользователь
+  const isNotFoundPage = false; // страница не найдена
+  const isLoading = false; // Загрузка
 
+  // Закрываем по ESC
+  const handleEscModal = evt => {
+    if (evt.key === 'Escape') {
+      handleClosePopups();
+    }
+  };
+
+  // Слушатели для ESC
   const addModalEscEvent = () => {
     document.addEventListener('keyup', handleEscModal);
   };
@@ -46,18 +55,19 @@ function App() {
     addModalEscEvent();
   };
 
+  // Открываем модалку с подтверждением входа пользователя
+  const handleOpenConfirmModal = () => {
+    handleClosePopups();
+    setConfirmModalOpen(true);
+    addModalEscEvent();
+  };
+
   // Закрыть все модалки
   const handleClosePopups = () => {
     setAuthModalOpen(false);
     setRegModalOpen(false);
     setConfirmModalOpen(false);
     document.removeEventListener('keyup', handleEscModal);
-  };
-
-  const handleEscModal = evt => {
-    if (evt.key === 'Escape') {
-      handleClosePopups();
-    }
   };
 
   return (
@@ -82,17 +92,18 @@ function App() {
         </Switch>
       </Main>
 
-      <PopupModal
+      <ModalForm
         isOpenAuth={isRegModalOpen}
         handleClosePopup={handleClosePopups}
         handleOpenAuth={handleOpenAuthModal}
+        handleOpenConfirmModal={handleOpenConfirmModal}
         linkName="Авторизоваться"
         title="Регистрация"
         textButton="Зарегистрироваться"
         name="registration"
       />
 
-      <PopupModal
+      <ModalForm
         isOpenReg={isAuthModalOpen}
         handleOpenRegModal={handleOpenRegModal}
         handleClosePopup={handleClosePopups}
@@ -102,6 +113,12 @@ function App() {
         name="auth"
       />
 
+      <ConfirmModal
+        isConfirmModalOpen={isConfirmModalOpen}
+        title={'Пользователь успешно зарегистрирован!'}
+        textButton={'Войти'}
+        handleOpenAuthModal={handleOpenAuthModal}
+      />
       <Footer />
     </div>
   );

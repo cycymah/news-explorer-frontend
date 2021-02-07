@@ -1,9 +1,9 @@
-import './Header.css';
-
-import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import NavigationMenu from '../NavigationMenu/NavigationMenu';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+
+import './Header.css';
+import NavigationMenu from '../NavigationMenu/NavigationMenu';
 
 function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
   const [isMenuOpen, setMenuOpen] = useState(false);

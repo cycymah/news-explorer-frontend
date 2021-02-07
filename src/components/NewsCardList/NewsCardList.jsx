@@ -1,7 +1,8 @@
+import classNames from 'classnames';
+
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
 import { news } from '../../constants/news';
-import classNames from 'classnames';
 
 const NewsCardList = ({ auth }) => {
   const hideTitle = classNames('news__title', {

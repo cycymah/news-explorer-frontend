@@ -1,5 +1,6 @@
-import './FormInput.css';
 import { useForm } from 'react-hook-form';
+
+import './FormInput.css';
 
 const FormInput = ({
   name,

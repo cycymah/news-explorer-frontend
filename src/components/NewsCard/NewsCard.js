@@ -1,6 +1,7 @@
-import './NewsCard.css';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import classNames from 'classnames';
+
+import './NewsCard.css';
 
 const NewsCard = ({
   image,

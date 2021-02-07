@@ -1,10 +1,9 @@
 import './SavedNews.css';
-import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
-import NewsCardList from '../NewsCardList/NewsCardList';
 import { news } from '../../constants/news';
 import NewsCard from '../NewsCard/NewsCard';
+import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 
-const SavedNews = ({ auth }) => {
+const SavedNews = () => {
   return (
     <>
       <SavedNewsHeader />
