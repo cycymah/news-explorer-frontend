@@ -36,16 +36,21 @@ const NavigationMenu = ({
     handlePopupOpen();
   };
 
+  const handleCloseMenu = evt => {
+    evt.stopPropagation();
+    handleMenuOpen(false);
+  };
+
   return (
     <nav className={navigationClasses}>
       <ul className="navigation__links">
-        <li className={activeRootRoute} onClick={closeMenu}>
+        <li className={activeRootRoute} onClick={handleCloseMenu}>
           <Link to="/" className="navigation__link">
             Главная
           </Link>
         </li>
         {!isAutoriz || (
-          <li className={activeSavedNewsRoute} onClick={closeMenu}>
+          <li className={activeSavedNewsRoute} onClick={handleCloseMenu}>
             <Link to="/saved-news" className="navigation__link">
               Сохраненные статьи
             </Link>

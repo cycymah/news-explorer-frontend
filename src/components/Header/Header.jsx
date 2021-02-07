@@ -21,7 +21,7 @@ function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
     header__overlay_active: isMenuOpen,
   });
 
-  const handleMenuOpen = () => {
+  const handleToggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
@@ -38,12 +38,11 @@ function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
           handlePopupOpen={handlePopupOpen}
           isMenuOpen={isMenuOpen}
           handleMenuOpen={setMenuOpen}
-          closeMenu={handleMenuOpen}
         />
         <button
           className={burgerClasses}
           name="menu"
-          onClick={handleMenuOpen}
+          onClick={handleToggleMenu}
         />
       </div>
     </header>

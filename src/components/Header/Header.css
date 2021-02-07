@@ -72,6 +72,10 @@
     transition: all .4s ease-in-out;
 }
 
+.header__background_black  {
+    background-color: inherit;
+}
+
 @media screen and (max-width: 1000px ){
     .header {
         height: 66px;
