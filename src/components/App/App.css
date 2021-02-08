@@ -1,0 +1,38 @@
+.page {
+  max-width: 100vw;
+  font-family: 'Roboto', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  background-color: #FFF;
+  color: #1A1B22;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+}
+
+.fon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 576px;
+  background: url('../../images/unsplash.png') no-repeat;
+  background-size: cover;
+}
+
+.fon_hide {
+  background: transparent;
+  min-height: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 1000px){
+  .fon {
+    min-height: 400px;
+  }
+  .fon_hide {
+    min-height: 0;
+  }
+}

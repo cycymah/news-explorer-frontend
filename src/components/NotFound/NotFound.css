@@ -1,0 +1,39 @@
+.not-found {
+    width: 100%;
+    display: flex;
+    background-color: #F5F6F7;
+    height: 374px;
+    justify-content: center;
+    align-items: center;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.not-found__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 356px;
+}
+
+.not-found__image {
+
+}
+
+.not-found__title {
+    margin: 31px 0 16px 0;
+    font-family: Roboto Slab, sans-serif;
+    font-size: 26px;
+    line-height: 30px;
+    text-align: center;
+    color: #1A1B22;
+}
+
+.not-found__subtitle {
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    color: #B6BCBF;
+}

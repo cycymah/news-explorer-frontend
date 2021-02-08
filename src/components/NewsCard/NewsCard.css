@@ -1,0 +1,225 @@
+.card {
+    position: relative;
+}
+
+.card__figure-card {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background-color: #FFF;
+    border-radius: 15px;
+    height: 100%;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.card__login-message {
+    position: absolute;
+    background: #FFF;
+    top: 24px;
+    right: 69px;
+    width: 182px;
+    height: 40px;
+    box-shadow: 0 10px 22px rgba(59, 74, 116, .1);
+    border-radius: 10px;
+    font-family: Roboto, serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 40px;
+    color: #000000;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .4s ease-in-out;
+}
+
+.card__favorites-btn {
+    right: 24px;
+    top: 24px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    border: none;
+    outline: none;
+    transition:  background .4s ease-in-out;
+    cursor: pointer;
+}
+
+.card__favorites-btn_not-trash {
+    background: url("../../images/favorites-btn.png") no-repeat center;
+}
+
+.card__favorites-btn_not-trash:hover {
+    transition: background .4s ease-in-out;
+    background: url("../../images/favorites-hover.png") no-repeat center;
+}
+
+.card__favorites-btn:hover + .card__login-message {
+    transition: all .4s ease-in-out;
+    visibility: visible;
+    opacity: 1;
+}
+
+.card__favorites-btn_trash {
+    background: url("../../images/inactiv-trash.png") no-repeat center;
+}
+
+.card__favorites-btn_trash:hover {
+    background: url("../../images/trash.png") no-repeat center;
+}
+
+.card__favorites-btn_active {
+    background: url("../../images/favorites-marked.png") no-repeat center;
+}
+
+.card__keyword {
+    position: absolute;
+    background: #FFF;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 40px;
+    top: 24px;
+    left: 24px;
+    min-width: 72px;
+    height: 40px;
+    box-shadow: 0 10px 22px rgba(59, 74, 116, .1);
+    border-radius: 10px;
+    color: #000;
+    text-align: center;
+}
+
+.card__image {
+    width: 100%;
+    height: 272px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px 15px 0 0;
+}
+
+.card__content-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 20px 24px 24px;
+    border-radius: 0 0 15px 15px;
+}
+
+.card__date {
+    font-family: Source Sans Pro, sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    color: #B6BCBF;
+}
+
+.card__text-box {
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card__title {
+    font-family: Roboto Slab, sans-serif;
+    font-size: 26px;
+    line-height: 30px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.card__description {
+    margin: 16px 0 0 0;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+}
+
+.card__link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #1A1B22;
+    height: 100%;
+    transition: opacity .4s ease-in-out;
+}
+
+.card__link:hover {
+    transition: opacity .4s ease-in-out;
+    opacity: .8;
+}
+
+.card__source {
+    font-family: Roboto Slab, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    color: #B6BCBF;
+}
+
+@media screen and (max-width: 1000px) {
+    .card__image {
+        height: 150px;
+    }
+
+    .card__favorites-btn {
+        right: 8px;
+        top: 8px;
+    }
+
+    .card__favorites-btn:hover + .card__login-message {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .card__keyword {
+        line-height: 40px;
+        top: 8px;
+        left: 8px;
+    }
+    .card__content-box {
+        padding: 16px 16px 26px;
+    }
+
+    .card__title {
+        font-size: 22px;
+        line-height: 24px;
+    }
+
+    .card__text-box {
+        height: 172px;
+    }
+
+    .card__description {
+        margin: 10px 0 12px;
+        max-height: 88px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+@media screen and (max-width: 640px){
+    .card__text-box {
+        padding-top: 10px;
+    }
+
+    .card__content-box {
+        padding: 16px;
+        height: auto;
+    }
+    .card__description {
+        margin-bottom: 10px;
+        -webkit-line-clamp: 4;
+    }
+    .card__image {
+        height: 196px;
+    }
+}
