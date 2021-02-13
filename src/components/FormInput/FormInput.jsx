@@ -8,11 +8,14 @@ const FormInput = ({
   placeholder,
   label,
   getFormValid,
+  getValue,
 }) => {
   const { register, errors } = useForm({ mode: 'onChange' });
   const validation = register(validationConfig);
-  const onchangeValidStatus = () =>
+  const onchangeValidStatus = evt => {
+    getValue(evt.target.value);
     errors[name] ? getFormValid(true) : getFormValid(false);
+  };
 
   return (
     <label className="form__label">

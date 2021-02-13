@@ -4,16 +4,20 @@ import { Link } from 'react-router-dom';
 import './NavigationMenu.css';
 import imageBtn from '../../images/Union.png';
 import imageBtnLight from '../../images/logout.png';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../utils/context';
 
 const NavigationMenu = ({
   isAutoriz,
   isRootPath,
   handlePopupOpen,
   isMenuOpen,
-  closeMenu,
+  handleLogout,
   handleMenuOpen,
 }) => {
-  const buttonText = isAutoriz ? 'Грета' : 'Авторизация';
+  const { name } = useContext(CurrentUserContext);
+
+  const buttonText = isAutoriz ? name : 'Авторизоваться';
   const imageBtnSwitch = !isRootPath && !isMenuOpen ? imageBtn : imageBtnLight;
   const activeRootRoute = classNames('navigation__link-item', {
     'navigation__link-item_active': isRootPath,
@@ -57,7 +61,10 @@ const NavigationMenu = ({
           </li>
         )}
       </ul>
-      <button className={btnClasses} onClick={handleOpenAuthPopup}>
+      <button
+        className={btnClasses}
+        onClick={isAutoriz ? handleLogout : handleOpenAuthPopup}
+      >
         {buttonText}
         {!isAutoriz || (
           <img

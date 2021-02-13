@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import './Header.css';
 import NavigationMenu from '../NavigationMenu/NavigationMenu';
 
-function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
+function Header({ handlePopupOpen, isAutoriz, isRootPath, handleLogout }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const headerClasses = classNames('header', {
     header_dark: !isRootPath && !isMenuOpen,
@@ -33,6 +33,7 @@ function Header({ handlePopupOpen, isAutoriz, isRootPath }) {
           <h2 className="header__title">NewsExplorer</h2>
         </Link>
         <NavigationMenu
+          handleLogout={handleLogout}
           isAutoriz={isAutoriz}
           isRootPath={isRootPath}
           handlePopupOpen={handlePopupOpen}

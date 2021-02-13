@@ -10,7 +10,7 @@ class MainApi {
       headers: this._headers,
     }).then(this._errorCheck);
 
-  addNewCard = data =>
+  addNewsCard = data =>
     fetch(`${this._serverUrl}/articles`, {
       method: 'POST',
       headers: this._headers,
@@ -30,7 +30,7 @@ class MainApi {
 const localToken = localStorage.getItem('jwt');
 
 const mainApi = new MainApi({
-  url: 'https://api.cycymah.students.nomoreparties.space',
+  url: 'https://api.ethosy.students.nomoreparties.space',
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localToken}`,

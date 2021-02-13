@@ -1,16 +1,30 @@
 import './SavedNews.css';
-import { news } from '../../constants/news';
+import React, { useState } from 'react';
 import NewsCard from '../NewsCard/NewsCard';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
+import mainApi from '../../utils/MainApi';
 
 const SavedNews = () => {
+  const [savedNews, setSavedNews] = useState(
+    JSON.parse(localStorage.getItem('news'))
+  );
+
+  const handleFavoriteDelete = async id => {
+    try {
+      await mainApi.removeFromFavorites(id);
+      const filteredNews = savedNews.filter(oneNews => oneNews._id !== id);
+      setSavedNews(filteredNews);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <>
-      <SavedNewsHeader />
+      <SavedNewsHeader savedNews={savedNews} />
       <section className="saved-news">
         <div className="saved-news__container">
           <ul className="saved-news__list">
-            {news.map((oneNews, i) => (
+            {savedNews.map((oneNews, i) => (
               <NewsCard
                 key={i}
                 saved={true}
@@ -21,6 +35,8 @@ const SavedNews = () => {
                 description={oneNews.text}
                 link={oneNews.link}
                 keyword={oneNews.keyword}
+                id={oneNews._id}
+                handleFavoriteDelete={handleFavoriteDelete}
               />
             ))}
           </ul>
