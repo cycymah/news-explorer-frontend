@@ -1,9 +1,8 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
 
 import './NewsCardList.css';
 import NewsCard from '../NewsCard/NewsCard';
-import mainApi from '../../utils/MainApi';
 
 const NewsCardList = ({
   loggedIn,
@@ -11,22 +10,14 @@ const NewsCardList = ({
   handleMoreNews,
   isMoreNewsBtn,
   handleFavorites,
+  handleOpenRegModal,
+  handleDeleteCard,
 }) => {
   const hideTitle = classNames('news__title', {
     'news_show-saved-news': loggedIn,
   });
 
-  // const hideMoreBtn = classNames('news__more-news-btn', {
-  //   'news_show-saved-news': loggedIn && !isMoreNewsBtn,
-  // });
-  const handleDeleteCard = async id => {
-    try {
-      await mainApi.removeFromFavorites(id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  // Отрисовка кнопки с отрисовкой новостей
+  // Отрисовка кнопки для рендера новостей
   const buttonRender = () =>
     !isMoreNewsBtn || loggedIn ? (
       <button
@@ -57,6 +48,8 @@ const NewsCardList = ({
               description={oneNews.description}
               link={oneNews.url}
               handleFavoriteDelete={handleDeleteCard}
+              handleFavorites={handleFavorites}
+              handleOpenRegModal={handleOpenRegModal}
             />
           ))}
         </ul>

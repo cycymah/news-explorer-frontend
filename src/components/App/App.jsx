@@ -8,6 +8,7 @@ import About from '../About/About';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import newsApi from '../../utils/NewsApi';
+import mainApi from '../../utils/MainApi';
 import ModalForm from '../ModalForm/ModalForm';
 import SavedNews from '../SavedNews/SavedNews';
 import SearchForm from '../SearchForm/SearchForm';
@@ -16,7 +17,6 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { CurrentUserContext } from '../../utils/context';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { authApiSignin, authApiSignup, authApiCheck } from '../../utils/Auth';
-import mainApi from '../../utils/MainApi';
 
 function App() {
   const currentRoute = useLocation().pathname;
@@ -41,6 +41,7 @@ function App() {
   const [isNotFoundPage, setIsNotFound] = useState(false); // Страница не найдена
   const [isMoreNewsBtn, setIsMoreNewsBtn] = useState(false);
   const [endSlice, setEndSlice] = useState(3); // Счетчик для нужного кол-ва эл-тов массива
+  const [searchSrt, setSearchStr] = useState('');
 
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
@@ -50,6 +51,7 @@ function App() {
     initialUserNews();
   }, []);
 
+  // Получаем информацию о пользователе
   const initialUserData = async () => {
     if (localToken) {
       try {
@@ -66,6 +68,7 @@ function App() {
     }
   };
 
+  // Получаем сохраненные новости
   const initialUserNews = async () => {
     try {
       const savedNews = await mainApi.getSavedNews();
@@ -79,6 +82,7 @@ function App() {
   const handleSearch = async ({ search }) => {
     setIsNotFound(false);
     setIsLoading(true);
+    setSearchStr(search);
 
     try {
       const { articles, totalResults } = await newsApi.searchNews(search, 100);
@@ -90,7 +94,8 @@ function App() {
       } else if (totalResults > 3) {
         setIsMoreNewsBtn(true);
         setEndSlice(endSlice + 3);
-        return setSlicedNews(articles.slice(0, endSlice));
+        const newNewsList = articles.slice(0, endSlice);
+        return setSlicedNews(newNewsList);
       }
 
       setSlicedNews(articles);
@@ -139,10 +144,34 @@ function App() {
     history.push('/');
   };
 
+  // Добавить запись в избранное
+  const handleFavorites = async data => {
+    try {
+      const responseNews = await mainApi.addNewsCard({
+        ...data,
+        keyword: searchSrt,
+      });
+      initialUserNews();
+      return responseNews;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Удалить из избранного
+  const handleDeleteCard = async id => {
+    try {
+      await mainApi.removeFromFavorites(id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // Показываем 3 новости по клику
   const handleMoreNews = () => {
     setEndSlice(endSlice + 3);
-    setSlicedNews(searchNews.slice(0, endSlice));
+    const newNewsList = searchNews.slice(0, endSlice);
+    setSlicedNews(newNewsList);
   };
 
   // Закрываем по ESC
@@ -195,6 +224,9 @@ function App() {
         handleMoreNews={handleMoreNews}
         isMoreNewsBtn={isMoreNewsBtn}
         loggedIn={loggedIn}
+        handleFavorites={handleFavorites}
+        handleOpenRegModal={handleOpenRegModal}
+        handleDeleteCard={handleDeleteCard}
       />
     );
 

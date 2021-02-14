@@ -1,10 +1,10 @@
+import { useContext } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import './NavigationMenu.css';
 import imageBtn from '../../images/Union.png';
 import imageBtnLight from '../../images/logout.png';
-import { useContext } from 'react';
 import { CurrentUserContext } from '../../utils/context';
 
 const NavigationMenu = ({

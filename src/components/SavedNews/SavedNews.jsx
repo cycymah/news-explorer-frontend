@@ -1,8 +1,9 @@
-import './SavedNews.css';
 import React, { useState } from 'react';
+
+import './SavedNews.css';
+import mainApi from '../../utils/MainApi';
 import NewsCard from '../NewsCard/NewsCard';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
-import mainApi from '../../utils/MainApi';
 
 const SavedNews = () => {
   const [savedNews, setSavedNews] = useState(
@@ -18,27 +19,30 @@ const SavedNews = () => {
       console.error(err);
     }
   };
+
   return (
     <>
       <SavedNewsHeader savedNews={savedNews} />
       <section className="saved-news">
         <div className="saved-news__container">
           <ul className="saved-news__list">
-            {savedNews.map((oneNews, i) => (
-              <NewsCard
-                key={i}
-                saved={true}
-                title={oneNews.title}
-                image={oneNews.image}
-                date={oneNews.date}
-                source={oneNews.source}
-                description={oneNews.text}
-                link={oneNews.link}
-                keyword={oneNews.keyword}
-                id={oneNews._id}
-                handleFavoriteDelete={handleFavoriteDelete}
-              />
-            ))}
+            {savedNews
+              .map(oneNews => (
+                <NewsCard
+                  key={oneNews._id}
+                  saved={true}
+                  title={oneNews.title}
+                  image={oneNews.image}
+                  date={oneNews.date}
+                  source={oneNews.source}
+                  description={oneNews.text}
+                  link={oneNews.link}
+                  keyword={oneNews.keyword}
+                  id={oneNews._id}
+                  handleFavoriteDelete={handleFavoriteDelete}
+                />
+              ))
+              .reverse()}
           </ul>
         </div>
       </section>

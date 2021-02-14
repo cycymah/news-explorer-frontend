@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import { useForm } from 'react-hook-form';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import './SearchForm.css';
 import { searchValidationConfig } from '../../constants/form';
 
-function SearchForm({ handleSearch }) {
+const SearchForm = ({ handleSearch }) => {
   const [isDisabledBtn, setButtonDisabled] = useState(true);
 
   const { register, handleSubmit, errors } = useForm({ mode: 'onChange' });
@@ -45,6 +45,6 @@ function SearchForm({ handleSearch }) {
       </form>
     </section>
   );
-}
+};
 
 export default SearchForm;

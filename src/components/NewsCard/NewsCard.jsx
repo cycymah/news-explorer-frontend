@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import React, { useState, useEffect } from 'react';
 
 import './NewsCard.css';
-import mainApi from '../../utils/MainApi';
 import { TOOLTIP_TEXT } from '../../constants/tooltipText';
 
 const NewsCard = ({
@@ -17,13 +16,35 @@ const NewsCard = ({
   loggedIn,
   id,
   handleFavoriteDelete,
+  handleFavorites,
+  handleOpenRegModal,
 }) => {
   const [isFavorite, setIsFavorite] = useState(!!id);
   const [textTooltip, setTooltipText] = useState('');
+  const [currentCardId, setCurrentCardId] = useState('');
+
+  const favoritesBtn = classNames('card__favorites-btn', {
+    'card__favorites-btn_trash': saved,
+    'card__favorites-btn_active': isFavorite && !saved,
+    'card__favorites-btn_not-trash': !isFavorite,
+  });
+
   useEffect(() => {
     setInitialTooltips();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
+  // Меняем формат даты
+  const dateReformat = () => {
+    const initialDate = new Date(date);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    return initialDate.toLocaleDateString('ru-RU', options);
+  };
 
+  // Устанавливаем тултипы при инициализации
   const setInitialTooltips = () => {
     if (id) {
       return setTooltipText(TOOLTIP_TEXT.deleteFromFavorites);
@@ -33,35 +54,26 @@ const NewsCard = ({
     setTooltipText(TOOLTIP_TEXT.notLogin);
   };
 
-  const favoritesBtn = classNames('card__favorites-btn', {
-    'card__favorites-btn_trash': isFavorite,
-    'card__favorites-btn_not-trash': !isFavorite,
-  });
-
-  // Добавить запись в избранное
-  const handleFavorites = async data => {
-    try {
-      await mainApi.addNewsCard(data);
-      setIsFavorite(true);
-      setTooltipText(TOOLTIP_TEXT.deleteFromFavorites);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   const onFavoritesClick = () => {
     if (isFavorite) {
-      handleFavoriteDelete(id);
+      handleFavoriteDelete(id || currentCardId);
+      setTooltipText(TOOLTIP_TEXT.addToFavorites);
+      setIsFavorite(false);
     } else if (!isFavorite && loggedIn) {
       handleFavorites({
-        keyword: title.split(' ')[0],
         title: title,
         text: description,
         date: date,
         source: source,
         image: image,
         link: link,
+      }).then(({ _id }) => {
+        setIsFavorite(true);
+        setCurrentCardId(_id);
+        setTooltipText(TOOLTIP_TEXT.deleteFromFavorites);
       });
+    } else {
+      handleOpenRegModal();
     }
   };
 
@@ -83,7 +95,7 @@ const NewsCard = ({
             target="_blank"
             rel="noreferrer"
           >
-            <span className="card__date">{date}</span>
+            <span className="card__date">{dateReformat()}</span>
             <div className="card__text-box">
               <h3 className="card__title">{title}</h3>
               <p className="card__description">{description}</p>

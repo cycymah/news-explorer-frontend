@@ -126,10 +126,10 @@
     line-height: 30px;
     font-weight: normal;
     margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
+    /*display: -webkit-box;*/
+    /*-webkit-line-clamp: 4;*/
+    /*overflow: hidden;*/
+    /*-webkit-box-orient: vertical;*/
 }
 
 .card__description {

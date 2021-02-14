@@ -1,16 +1,43 @@
+import React, { useContext, useState, useEffect } from 'react';
+
 import './SavedNewsHeader.css';
-import { useContext } from 'react';
 import { CurrentUserContext } from '../../utils/context';
 
 const SavedNewsHeader = ({ savedNews }) => {
+  const [sortedKeywords, setSortedKeywords] = useState('');
   const { name } = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    const sameWords = findSame();
+    const sortedByPopularity = sortByNumber(sameWords);
+    setSortedKeywords(sortedByPopularity);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Поиск одинаковых ключевых слов и запись в объект
+  const findSame = () => {
+    const mass = savedNews.map(news => news.keyword);
+    const news = mass.reduce((acc, elem) => {
+      acc[elem] = (acc[elem] || 0) + 1;
+      return acc;
+    }, {});
+    return news;
+  };
+
+  // Сортировка по возрастанию ключевых слов
+  const sortByNumber = keywords => {
+    return Object.keys(keywords).sort(function (a, b) {
+      return keywords[b] - keywords[a];
+    });
+  };
+
   const returnTitleString = () => {
     if (savedNews.length === 1) {
       return 'сохранённая статья';
-    } else if (savedNews.length === 2 || 3 || 4) {
-      return 'сохраненные статьи';
+    } else if (savedNews.length > 4) {
+      return 'сохранённых статей';
     }
-    return 'сохранённых статей';
+    return 'сохраненные статьи';
   };
 
   return (
@@ -21,9 +48,19 @@ const SavedNewsHeader = ({ savedNews }) => {
       } ${returnTitleString()}`}</h2>
       <p className="saved-news__keywords">
         По ключевым словам:&ensp;
-        <span className="saved-news__keywords_bold">Природа,</span>&ensp;
-        <span className="saved-news__keywords_bold">Тайга</span>&ensp;и&ensp;
-        <span className="saved-news__keywords_bold">2-м другим</span>
+        <span className="saved-news__keywords_bold">{sortedKeywords[0]}</span>
+        {!sortedKeywords[1] || (
+          <span className="saved-news__keywords_bold">
+            ,&ensp;{sortedKeywords[1]}
+          </span>
+        )}
+        &ensp;и&ensp;
+        <span className="saved-news__keywords_bold">
+          {sortedKeywords.length > 3
+            ? `${sortedKeywords.length - 2}
+          - м другим`
+            : '...'}
+        </span>
       </p>
     </div>
   );

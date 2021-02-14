@@ -8,7 +8,6 @@ import {
   passwordValidationConfig,
   nameValidationConfig,
 } from '../../constants/form';
-import { useForm } from 'react-hook-form';
 
 const ModalForm = ({
   name,
