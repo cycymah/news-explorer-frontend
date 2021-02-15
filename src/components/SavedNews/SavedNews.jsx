@@ -7,7 +7,7 @@ import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 
 const SavedNews = () => {
   const [savedNews, setSavedNews] = useState(
-    JSON.parse(localStorage.getItem('news'))
+    JSON.parse(localStorage.getItem('savedNews'))
   );
 
   const handleFavoriteDelete = async id => {

@@ -19,6 +19,10 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { authApiSignin, authApiSignup, authApiCheck } from '../../utils/Auth';
 
 function App() {
+  let endSliced = 3;
+  let fromStorage = JSON.parse(localStorage.getItem('news'));
+
+  const localStorageNews = fromStorage ? fromStorage.slice(0, endSliced) : [];
   const currentRoute = useLocation().pathname;
   const isRootPath = currentRoute === '/';
   const history = new useHistory();
@@ -33,14 +37,13 @@ function App() {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   // Данные новостей
-  const [searchNews, setSearchNews] = useState([]);
-  const [slicedNews, setSlicedNews] = useState([]);
+  const [searchNews, setSearchNews] = useState(localStorageNews);
+  const [slicedNews, setSlicedNews] = useState(localStorageNews);
 
   // Состояния
   const [isLoading, setIsLoading] = useState(false); // Данные загружаются
   const [isNotFoundPage, setIsNotFound] = useState(false); // Страница не найдена
   const [isMoreNewsBtn, setIsMoreNewsBtn] = useState(false);
-  const [endSlice, setEndSlice] = useState(3); // Счетчик для нужного кол-ва эл-тов массива
   const [searchSrt, setSearchStr] = useState('');
 
   const [currentUser, setCurrentUser] = useState({});
@@ -72,7 +75,7 @@ function App() {
   const initialUserNews = async () => {
     try {
       const savedNews = await mainApi.getSavedNews();
-      localStorage.setItem('news', JSON.stringify(savedNews));
+      localStorage.setItem('savedNews', JSON.stringify(savedNews));
     } catch (err) {
       console.error(err);
     }
@@ -80,6 +83,7 @@ function App() {
 
   // Запрос для поиска
   const handleSearch = async ({ search }) => {
+    endSliced = 3;
     setIsNotFound(false);
     setIsLoading(true);
     setSearchStr(search);
@@ -88,17 +92,22 @@ function App() {
       const { articles, totalResults } = await newsApi.searchNews(search, 100);
 
       setSearchNews(articles);
+      const withKeywords = articles.map(article => ({
+        ...article,
+        keyword: search,
+      }));
 
+      const dataForStorage = JSON.stringify(withKeywords);
+      localStorage.setItem('news', dataForStorage);
       if (totalResults === 0) {
         return setIsNotFound(true);
       } else if (totalResults > 3) {
         setIsMoreNewsBtn(true);
-        setEndSlice(endSlice + 3);
-        const newNewsList = articles.slice(0, endSlice);
+        const newNewsList = withKeywords.slice(0, endSliced);
         return setSlicedNews(newNewsList);
       }
 
-      setSlicedNews(articles);
+      setSlicedNews(withKeywords);
     } catch (err) {
       console.error(err);
     } finally {
@@ -147,10 +156,7 @@ function App() {
   // Добавить запись в избранное
   const handleFavorites = async data => {
     try {
-      const responseNews = await mainApi.addNewsCard({
-        ...data,
-        keyword: searchSrt,
-      });
+      const responseNews = await mainApi.addNewsCard(data);
       initialUserNews();
       return responseNews;
     } catch (err) {
@@ -169,8 +175,7 @@ function App() {
 
   // Показываем 3 новости по клику
   const handleMoreNews = () => {
-    setEndSlice(endSlice + 3);
-    const newNewsList = searchNews.slice(0, endSlice);
+    const newNewsList = searchNews.slice(0, endSliced + 3);
     setSlicedNews(newNewsList);
   };
 
@@ -212,7 +217,7 @@ function App() {
     setAuthModalOpen(false);
     setRegModalOpen(false);
     setConfirmModalOpen(false);
-    document.removeEventListener('keyup', handleEscModal);
+    document.removeEventListener('keyup', handleEscModal); // снимаем слушаеть при закрытии тут
   };
 
   const newsListRender = () =>
@@ -220,7 +225,7 @@ function App() {
       ''
     ) : (
       <NewsCardList
-        newsData={slicedNews}
+        newsData={slicedNews || localStorageNews}
         handleMoreNews={handleMoreNews}
         isMoreNewsBtn={isMoreNewsBtn}
         loggedIn={loggedIn}

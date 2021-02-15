@@ -50,6 +50,7 @@ const NewsCardList = ({
               handleFavoriteDelete={handleDeleteCard}
               handleFavorites={handleFavorites}
               handleOpenRegModal={handleOpenRegModal}
+              keyword={oneNews.keyword}
             />
           ))}
         </ul>

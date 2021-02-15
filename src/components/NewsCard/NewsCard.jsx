@@ -67,6 +67,7 @@ const NewsCard = ({
         source: source,
         image: image,
         link: link,
+        keyword: keyword,
       }).then(({ _id }) => {
         setIsFavorite(true);
         setCurrentCardId(_id);
