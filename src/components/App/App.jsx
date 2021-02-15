@@ -17,6 +17,7 @@ import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { CurrentUserContext } from '../../utils/context';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { authApiSignin, authApiSignup, authApiCheck } from '../../utils/Auth';
+import Notification from '../Notification/Notification';
 
 function App() {
   let endSliced = 3;
@@ -35,6 +36,7 @@ function App() {
   const [isAuthModalOpen, setAuthModalOpen] = useState(false);
   const [isRegModalOpen, setRegModalOpen] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isWarningOpen, setWarningOpen] = useState(false);
 
   // Данные новостей
   const [searchNews, setSearchNews] = useState(localStorageNews);
@@ -44,10 +46,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); // Данные загружаются
   const [isNotFoundPage, setIsNotFound] = useState(false); // Страница не найдена
   const [isMoreNewsBtn, setIsMoreNewsBtn] = useState(false);
-  const [searchSrt, setSearchStr] = useState('');
 
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
 
   useEffect(() => {
     initialUserData();
@@ -86,7 +87,6 @@ function App() {
     endSliced = 3;
     setIsNotFound(false);
     setIsLoading(true);
-    setSearchStr(search);
 
     try {
       const { articles, totalResults } = await newsApi.searchNews(search, 100);
@@ -109,6 +109,7 @@ function App() {
 
       setSlicedNews(withKeywords);
     } catch (err) {
+      setWarningOpen(true);
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -117,6 +118,7 @@ function App() {
 
   // Регистрация
   const registrationOnSubmit = async ({ name, password, email }) => {
+    setIsLoading(true);
     try {
       const { _id } = await authApiSignup(password, email, name);
 
@@ -125,11 +127,14 @@ function App() {
       }
     } catch (err) {
       console.error(err);
+      setWarningOpen(true);
+    } finally {
+      setIsLoading(false);
     }
   };
-
   // Вход
   const signInOnSubmit = async ({ password, email }) => {
+    setIsLoading(true);
     try {
       const { token, name } = await authApiSignin(password, email);
 
@@ -141,7 +146,9 @@ function App() {
       }
     } catch (err) {
       console.error('Нет токена', err);
+      setWarningOpen(true);
     } finally {
+      setIsLoading(false);
       handleClosePopups();
     }
   };
@@ -258,6 +265,9 @@ function App() {
               path="/saved-news"
               loggedIn={loggedIn}
               component={SavedNews}
+              handleOpenAuthModal={handleOpenAuthModal}
+              handleDeleteCard={handleDeleteCard}
+              isLoading={isLoading}
             />
           </Switch>
         </Main>
@@ -272,6 +282,7 @@ function App() {
           textButton="Зарегистрироваться"
           name="registration"
           registrationOnSubmit={registrationOnSubmit}
+          isLoading={isLoading}
         />
 
         <ModalForm
@@ -283,6 +294,7 @@ function App() {
           title="Вход"
           textButton="Войти"
           name="auth"
+          isLoading={isLoading}
         />
 
         <ConfirmModal
@@ -292,6 +304,7 @@ function App() {
           handleOpenAuthModal={handleOpenAuthModal}
           handleClosePopup={handleClosePopups}
         />
+        <Notification isOpen={isWarningOpen} onClose={setWarningOpen} />
         <Footer />
       </div>
     </CurrentUserContext.Provider>

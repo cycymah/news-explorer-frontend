@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import './SearchForm.css';
 import { searchValidationConfig } from '../../constants/form';
 
-const SearchForm = ({ handleSearch }) => {
+const SearchForm = ({ handleSearch, isLoading }) => {
   const [isDisabledBtn, setButtonDisabled] = useState(true);
 
   const { register, handleSubmit, errors } = useForm({ mode: 'onChange' });
@@ -38,7 +38,7 @@ const SearchForm = ({ handleSearch }) => {
         <button
           type="submit"
           className={buttonValidityClass}
-          disabled={isDisabledBtn}
+          disabled={isDisabledBtn || isLoading}
         >
           Искать
         </button>

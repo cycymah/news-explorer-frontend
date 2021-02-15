@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 
 import './SavedNews.css';
-import mainApi from '../../utils/MainApi';
 import NewsCard from '../NewsCard/NewsCard';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 
-const SavedNews = () => {
+const SavedNews = ({ handleDeleteCard }) => {
   const [savedNews, setSavedNews] = useState(
     JSON.parse(localStorage.getItem('savedNews'))
   );
 
   const handleFavoriteDelete = async id => {
     try {
-      await mainApi.removeFromFavorites(id);
+      await handleDeleteCard(id);
       const filteredNews = savedNews.filter(oneNews => oneNews._id !== id);
       setSavedNews(filteredNews);
     } catch (err) {

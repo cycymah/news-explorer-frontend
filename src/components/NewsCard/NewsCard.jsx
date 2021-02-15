@@ -68,11 +68,13 @@ const NewsCard = ({
         image: image,
         link: link,
         keyword: keyword,
-      }).then(({ _id }) => {
-        setIsFavorite(true);
-        setCurrentCardId(_id);
-        setTooltipText(TOOLTIP_TEXT.deleteFromFavorites);
-      });
+      })
+        .then(({ _id }) => {
+          setIsFavorite(true);
+          setCurrentCardId(_id);
+          setTooltipText(TOOLTIP_TEXT.deleteFromFavorites);
+        })
+        .catch(err => console.error(err));
     } else {
       handleOpenRegModal();
     }

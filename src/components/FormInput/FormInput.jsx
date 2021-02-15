@@ -9,6 +9,7 @@ const FormInput = ({
   label,
   getFormValid,
   getValue,
+  type,
 }) => {
   const { register, errors } = useForm({ mode: 'onChange' });
   const validation = register(validationConfig);
@@ -21,7 +22,7 @@ const FormInput = ({
     <label className="form__label">
       {label}
       <input
-        type="text"
+        type={type}
         className="form__input"
         placeholder={placeholder}
         name={name}

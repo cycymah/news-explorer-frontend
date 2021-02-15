@@ -54,13 +54,16 @@ const SavedNewsHeader = ({ savedNews }) => {
             ,&ensp;{sortedKeywords[1]}
           </span>
         )}
-        &ensp;и&ensp;
-        <span className="saved-news__keywords_bold">
-          {sortedKeywords.length > 3
-            ? `${sortedKeywords.length - 2}
-          - м другим`
-            : '...'}
-        </span>
+        {sortedKeywords.length > 3 ? (
+          <>
+            &ensp;и&ensp;
+            <span className="saved-news__keywords_bold">
+              {sortedKeywords.length}-м другим
+            </span>
+          </>
+        ) : (
+          ''
+        )}
       </p>
     </div>
   );

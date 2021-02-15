@@ -21,6 +21,7 @@ const ModalForm = ({
   handleOpenRegModal,
   registrationOnSubmit,
   handleSignIn,
+  isLoading,
 }) => {
   const [isValidName, checkValidityName] = useState(false);
   const [isValidPassword, checkValidityPassword] = useState(true);
@@ -75,6 +76,7 @@ const ModalForm = ({
             name="email"
             placeholder="Введите почту"
             getValue={setInputEmail}
+            type="email"
           />
           <FormInput
             getFormValid={checkValidityPassword}
@@ -83,6 +85,7 @@ const ModalForm = ({
             name="password"
             placeholder="Введите пароль"
             getValue={setInputPassword}
+            type="password"
           />
           {isOpenReg || (
             <FormInput
@@ -92,12 +95,15 @@ const ModalForm = ({
               name="name"
               placeholder="Введите имя"
               getValue={setInputName}
+              type="text"
             />
           )}
           <button
             className={buttonValidityClass}
             type="submit"
-            disabled={isValidPassword || isValidEmail || isValidName}
+            disabled={
+              isValidPassword || isValidEmail || isValidName || isLoading
+            }
           >
             {textButton}
           </button>

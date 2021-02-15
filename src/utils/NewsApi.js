@@ -1,8 +1,8 @@
 class NewsApi {
-  constructor({ apikey, url, pastDate, curentDate }) {
+  constructor({ apikey, url, pastDate, currentDate }) {
     this._apiKey = apikey;
     this._url = url;
-    this._currentDate = curentDate;
+    this._currentDate = currentDate;
     this._pastDate = pastDate;
   }
 
