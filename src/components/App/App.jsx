@@ -15,15 +15,15 @@ import SearchForm from '../SearchForm/SearchForm';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
 import { CurrentUserContext } from '../../utils/context';
+import Notification from '../Notification/Notification';
+import { NEWS_PER_PAGE } from '../../constants/appConstants';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { authApiSignin, authApiSignup, authApiCheck } from '../../utils/Auth';
-import Notification from '../Notification/Notification';
 
 function App() {
-  let endSliced = 3;
+  let array = [];
   let fromStorage = JSON.parse(localStorage.getItem('news'));
 
-  const localStorageNews = fromStorage ? fromStorage.slice(0, endSliced) : [];
   const currentRoute = useLocation().pathname;
   const isRootPath = currentRoute === '/';
   const history = new useHistory();
@@ -37,15 +37,18 @@ function App() {
   const [isRegModalOpen, setRegModalOpen] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [isWarningOpen, setWarningOpen] = useState(false);
+  const [endSliced, setEndSliced] = useState(NEWS_PER_PAGE);
+
+  const localStorageNews = fromStorage
+    ? fromStorage.slice(0, NEWS_PER_PAGE)
+    : [];
 
   // Данные новостей
-  const [searchNews, setSearchNews] = useState(localStorageNews);
   const [slicedNews, setSlicedNews] = useState(localStorageNews);
 
   // Состояния
   const [isLoading, setIsLoading] = useState(false); // Данные загружаются
   const [isNotFoundPage, setIsNotFound] = useState(false); // Страница не найдена
-  const [isMoreNewsBtn, setIsMoreNewsBtn] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(null);
@@ -53,6 +56,7 @@ function App() {
   useEffect(() => {
     initialUserData();
     initialUserNews();
+    loopNewsSlice(0, NEWS_PER_PAGE);
   }, []);
 
   // Получаем информацию о пользователе
@@ -84,14 +88,15 @@ function App() {
 
   // Запрос для поиска
   const handleSearch = async ({ search }) => {
-    endSliced = 3;
+    setEndSliced(NEWS_PER_PAGE);
     setIsNotFound(false);
     setIsLoading(true);
 
     try {
       const { articles, totalResults } = await newsApi.searchNews(search, 100);
 
-      setSearchNews(articles);
+      array.push(articles);
+      setSlicedNews([]);
       const withKeywords = articles.map(article => ({
         ...article,
         keyword: search,
@@ -99,15 +104,14 @@ function App() {
 
       const dataForStorage = JSON.stringify(withKeywords);
       localStorage.setItem('news', dataForStorage);
+
       if (totalResults === 0) {
         return setIsNotFound(true);
       } else if (totalResults > 3) {
-        setIsMoreNewsBtn(true);
-        const newNewsList = withKeywords.slice(0, endSliced);
-        return setSlicedNews(newNewsList);
+        setSlicedNews(withKeywords.slice(0, NEWS_PER_PAGE));
+      } else {
+        setSlicedNews(withKeywords);
       }
-
-      setSlicedNews(withKeywords);
     } catch (err) {
       setWarningOpen(true);
       console.error(err);
@@ -132,6 +136,7 @@ function App() {
       setIsLoading(false);
     }
   };
+
   // Вход
   const signInOnSubmit = async ({ password, email }) => {
     setIsLoading(true);
@@ -180,10 +185,16 @@ function App() {
     }
   };
 
+  const loopNewsSlice = (start, end) => {
+    const slicedNews = fromStorage.slice(start, end);
+    array = [...array, ...slicedNews];
+    setSlicedNews(array);
+  };
+
   // Показываем 3 новости по клику
   const handleMoreNews = () => {
-    const newNewsList = searchNews.slice(0, endSliced + 3);
-    setSlicedNews(newNewsList);
+    loopNewsSlice(0, endSliced + NEWS_PER_PAGE);
+    setEndSliced(endSliced + NEWS_PER_PAGE);
   };
 
   // Закрываем по ESC
@@ -228,17 +239,17 @@ function App() {
   };
 
   const newsListRender = () =>
-    isLoading || isNotFoundPage || searchNews.length === 0 ? (
+    isLoading || isNotFoundPage || slicedNews.length === 0 ? (
       ''
     ) : (
       <NewsCardList
-        newsData={slicedNews || localStorageNews}
+        newsData={slicedNews}
         handleMoreNews={handleMoreNews}
-        isMoreNewsBtn={isMoreNewsBtn}
         loggedIn={loggedIn}
         handleFavorites={handleFavorites}
         handleOpenRegModal={handleOpenRegModal}
         handleDeleteCard={handleDeleteCard}
+        searchNews={fromStorage}
       />
     );
 

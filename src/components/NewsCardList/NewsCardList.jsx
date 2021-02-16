@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 
 import './NewsCardList.css';
@@ -8,10 +8,10 @@ const NewsCardList = ({
   loggedIn,
   newsData,
   handleMoreNews,
-  isMoreNewsBtn,
   handleFavorites,
   handleOpenRegModal,
   handleDeleteCard,
+  searchNews,
 }) => {
   const hideTitle = classNames('news__title', {
     'news_show-saved-news': loggedIn,
@@ -19,7 +19,9 @@ const NewsCardList = ({
 
   // Отрисовка кнопки для рендера новостей
   const buttonRender = () =>
-    !isMoreNewsBtn || loggedIn ? (
+    searchNews.length === newsData.length ? (
+      ''
+    ) : (
       <button
         className="news__more-news-btn"
         type="button"
@@ -27,8 +29,6 @@ const NewsCardList = ({
       >
         Показать еще
       </button>
-    ) : (
-      ''
     );
 
   return (

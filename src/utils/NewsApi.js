@@ -1,3 +1,5 @@
+import { SEARCH_TIME } from '../constants/newsApi';
+
 class NewsApi {
   constructor({ apikey, url, pastDate, currentDate }) {
     this._apiKey = apikey;
@@ -18,9 +20,11 @@ class NewsApi {
 
 const newsApi = new NewsApi({
   apikey: 'e1c3647fd7d242deaaf918a800c669d6',
-  pastDate: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+  pastDate: new Date(
+    Date.now() - SEARCH_TIME * 24 * 60 * 60 * 1000
+  ).toISOString(),
   currentDate: new Date(Date.now()).toISOString(),
-  url: 'https://newsapi.org/v2/everything',
+  url: 'https://nomoreparties.co/news/v2/everything',
 });
 
 export default newsApi;
