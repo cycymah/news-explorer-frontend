@@ -1,5 +1,6 @@
-import './ConfirmModal.css';
 import classNames from 'classnames';
+
+import './ConfirmModal.css';
 
 const ConfirmModal = ({
   isConfirmModalOpen,
@@ -22,7 +23,12 @@ const ConfirmModal = ({
           onClick={handleClosePopup}
         />
         <h2 className="confirm__title">{title}</h2>
-        <a className="confirm__auth-link" onClick={handleOpenAuthModal}>
+        <a
+          // eslint-disable-next-line
+          href={null}
+          className="confirm__auth-link"
+          onClick={handleOpenAuthModal}
+        >
           {textButton}
         </a>
       </div>

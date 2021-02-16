@@ -1,13 +1,14 @@
 import classNames from 'classnames';
-import { useForm } from 'react-hook-form';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import './SearchForm.css';
 import { searchValidationConfig } from '../../constants/form';
 
-function SearchForm() {
+const SearchForm = ({ handleSearch, isLoading }) => {
   const [isDisabledBtn, setButtonDisabled] = useState(true);
-  const { register, errors } = useForm({ mode: 'onChange' });
+
+  const { register, handleSubmit, errors } = useForm({ mode: 'onChange' });
   const validation = register(searchValidationConfig);
 
   const buttonValidityClass = classNames('search__btn', {
@@ -24,7 +25,7 @@ function SearchForm() {
         Находите самые свежие статьи на&nbsp;любую тему и&nbsp;сохраняйте
         в&nbsp;своём личном кабинете.
       </p>
-      <form className="search__form">
+      <form className="search__form" onSubmit={handleSubmit(handleSearch)}>
         <input
           name="search"
           type="text"
@@ -37,13 +38,13 @@ function SearchForm() {
         <button
           type="submit"
           className={buttonValidityClass}
-          disabled={isDisabledBtn}
+          disabled={isDisabledBtn || isLoading}
         >
           Искать
         </button>
       </form>
     </section>
   );
-}
+};
 
 export default SearchForm;

@@ -19,11 +19,16 @@ const ModalForm = ({
   handleOpenAuth,
   textButton,
   handleOpenRegModal,
-  handleOpenConfirmModal,
+  registrationOnSubmit,
+  handleSignIn,
+  isLoading,
 }) => {
   const [isValidName, checkValidityName] = useState(false);
   const [isValidPassword, checkValidityPassword] = useState(true);
   const [isValidEmail, checkValidityEmail] = useState(true);
+  const [inputName, setInputName] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const [inputEmail, setInputEmail] = useState('');
 
   const popupToggle = classNames('modal', {
     modal_active: isOpenAuth || isOpenReg,
@@ -36,8 +41,14 @@ const ModalForm = ({
   // Субмит для регистрации открывает откывает модалку с успешной регистрацией
   const onSubmitForm = evt => {
     evt.preventDefault();
-    if (!isOpenReg) {
-      handleOpenConfirmModal();
+    if (isOpenReg) {
+      handleSignIn({ email: inputEmail, password: inputPassword });
+    } else {
+      registrationOnSubmit({
+        name: inputName,
+        password: inputPassword,
+        email: inputEmail,
+      });
     }
   };
 
@@ -64,6 +75,8 @@ const ModalForm = ({
             validationConfig={emailValidationConfig}
             name="email"
             placeholder="Введите почту"
+            getValue={setInputEmail}
+            type="email"
           />
           <FormInput
             getFormValid={checkValidityPassword}
@@ -71,6 +84,8 @@ const ModalForm = ({
             validationConfig={passwordValidationConfig}
             name="password"
             placeholder="Введите пароль"
+            getValue={setInputPassword}
+            type="password"
           />
           {isOpenReg || (
             <FormInput
@@ -79,12 +94,16 @@ const ModalForm = ({
               validationConfig={nameValidationConfig}
               name="name"
               placeholder="Введите имя"
+              getValue={setInputName}
+              type="text"
             />
           )}
           <button
             className={buttonValidityClass}
             type="submit"
-            disabled={isValidPassword || isValidEmail || isValidName}
+            disabled={
+              isValidPassword || isValidEmail || isValidName || isLoading
+            }
           >
             {textButton}
           </button>

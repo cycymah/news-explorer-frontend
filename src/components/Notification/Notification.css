@@ -1,0 +1,103 @@
+@keyframes showOn {
+    from {opacity: 0;
+        visibility: hidden;}
+    to {opacity: 1;
+        visibility: visible;}
+}
+
+.modal {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    transition: visibility .5s ease, opacity .5s ease;
+    z-index: 1111111;
+}
+
+.modal_active {
+    visibility: visible;
+    animation: showOn .5s ease;
+    opacity: 1;
+}
+.modal__overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+}
+
+.modal__overlay_background_dark {
+    opacity: 0.9;
+    animation: showOn .5s ease;
+}
+
+.notification {
+    display: flex;
+    max-width: 430px;
+    width: 100%;
+    min-height: 330px;
+    background-color: white;
+    position: relative;
+    flex-direction: column;
+    z-index: 100;
+    box-sizing: border-box;
+    font-family: "Inter", "Arial", sans-serif;
+    padding: 35px;
+    margin: 0 45px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification__text {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.notification__close-btn {
+    background: url('../../images/close-btn.png') no-repeat center;
+    width: 41px;
+    height: 41px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    transition: 0.5s ease-in-out;
+    outline: none;
+}
+
+.notification__close-btn:hover {
+    transition: 0.5s ease-in-out;
+    opacity: 0.6;
+}
+
+.notification__box {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 480px) {
+    .notification__close-btn {
+        top: -25px;
+        right: -25px;
+        width: 20px;
+        height: 20px;
+    }
+}
